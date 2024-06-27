@@ -2,9 +2,8 @@
 
 namespace CleanArchMvc.Domain.Entities
 {
-    public sealed class Trophy
+    public sealed class Trophy : Entity
     {
-        public int Id { get; private set; }
         public string Competition { get; private set; }
         public int Year { get; private set; }
 

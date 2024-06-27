@@ -35,13 +35,13 @@ namespace CleanArchMvc.Domain.Entities
             DomainExceptionValidation.When(fullName.Length < 4 || fullName.Length > 100, "Tamanho do nome completo inválido.");
 
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(shortName), "O nome curto não pode ser vazio.");
-            DomainExceptionValidation.When(fullName.Length < 2 || fullName.Length > 20, "Tamanho do nome curto inválido.");
+            DomainExceptionValidation.When(shortName.Length < 2 || shortName.Length > 20, "Tamanho do nome curto inválido.");
 
             DomainExceptionValidation.When(yearFounded < 0, "Ano inválido.");
             DomainExceptionValidation.When(yearFounded > DateTime.Now.Year, "O ano de fundação não pode estar no futuro.");
 
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(Stadium), "O estádio não pode ser vazio.");
-            DomainExceptionValidation.When(fullName.Length < 4 || fullName.Length > 100, "Tamanho do nome do estádio inválido.");
+            DomainExceptionValidation.When(Stadium.Length < 4 || Stadium.Length > 100, "Tamanho do nome do estádio inválido.");
         }
 
         public void Update(string fullName, string shortName, int yearFounded, string stadium)

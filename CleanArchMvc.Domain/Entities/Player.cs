@@ -15,7 +15,6 @@ namespace CleanArchMvc.Domain.Entities
         public Player(string fullName, int height, string position, DateTime datebirth)
         {
             ValidadeDomain(fullName, height, position, datebirth);
-            //UpdatePlayer(fullName, height, position, datebirth);
         }
 
         public Player(int id, string fullName, int height, string position, DateTime datebirth)
@@ -24,7 +23,6 @@ namespace CleanArchMvc.Domain.Entities
             Id = id;
 
             ValidadeDomain(fullName, height, position, datebirth);
-            //UpdatePlayer(fullName, height, position, datebirth);
         }
 
         private static void ValidadeDomain(string fullName, decimal height, string position, DateTime datebirth)
@@ -33,6 +31,7 @@ namespace CleanArchMvc.Domain.Entities
             DomainExceptionValidation.When(fullName.Length < 4 || fullName.Length > 100, "Tamanho do nome inválido.");
             DomainExceptionValidation.When(height <= 0, "Altura deve ser um número positivo.");
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(position), "A posição não pode ser vazio.");
+            DomainExceptionValidation.When(position.Length > 20, "Tamanho do campo posição inválido inválido.");
             DomainExceptionValidation.When(datebirth >= DateTime.Now, "Data de nascimento não pode ser no futuro.");
         }
 
