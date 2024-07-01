@@ -4,11 +4,10 @@ namespace CleanArchMvc.Domain.Interfaces
 {
     public interface ITrophyRepository
     {
-        Task<IEnumerable<Trophy>> GetTrophies();
-        Task<IEnumerable<Club>> GetClubFrom(Trophy Trophy);
-        Task<Trophy> GetById(int? id);
-        Task Create(Trophy Trophy);
-        Task Update(Trophy Trophy);
-        Task Remove(Trophy Trophy);
+        Task<IEnumerable<Trophy>> GetTrophiesAsync();
+        Task<Trophy?> GetByIdAsync(int? id);
+        Task<Trophy> CreateAsync(Trophy trophy);
+        Task<Trophy> UpdateAsync(Trophy trophy);
+        Task<Trophy> RemoveAsync(Trophy trophy);
     }
 }
