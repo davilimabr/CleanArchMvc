@@ -12,20 +12,20 @@ namespace CleanArchMvc.Domain.Entities
         public int ClubId { get; private set; }
         public Club Club { get; private set; }
 
-        public Player(string fullName, int height, string position, DateTime datebirth)
+        public Player(string fullName, int height, string position, DateTime dateBirth)
         {
-            ValidadeDomain(fullName, height, position, datebirth);
+            ValidateDomain(fullName, height, position, dateBirth);
         }
 
-        public Player(int id, string fullName, int height, string position, DateTime datebirth)
+        public Player(int id, string fullName, int height, string position, DateTime dateBirth)
         {
             DomainExceptionValidation.When(id <= 0, "O Id deve ser um número positivo.");
             Id = id;
 
-            ValidadeDomain(fullName, height, position, datebirth);
+            ValidateDomain(fullName, height, position, dateBirth);
         }
 
-        private static void ValidadeDomain(string fullName, decimal height, string position, DateTime datebirth)
+        private static void ValidateDomain(string fullName, decimal height, string position, DateTime datebirth)
         {
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(fullName), "O nome não pode ser vazio.");
             DomainExceptionValidation.When(fullName.Length < 4 || fullName.Length > 100, "Tamanho do nome inválido.");
