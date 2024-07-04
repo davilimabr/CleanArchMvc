@@ -1,4 +1,7 @@
-﻿using CleanArchMvc.Domain.Interfaces;
+﻿using CleanArchMvc.Application.Interfaces;
+using CleanArchMvc.Application.Mappings;
+using CleanArchMvc.Application.Services;
+using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Infra.Data.Context;
 using CleanArchMvc.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +12,7 @@ namespace CleanArchMvc.Infra.IoC
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
              options.UseMySql(
@@ -22,6 +24,12 @@ namespace CleanArchMvc.Infra.IoC
             services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<ITrophyRepository, TrophyRepository>();
+
+            services.AddScoped<IClubService, ClubService>();
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<ITrophyService, TrophyService>();
+
+            services.AddAutoMapper(typeof(DomainToDtoMappingProfile));
 
             return services;
         }
