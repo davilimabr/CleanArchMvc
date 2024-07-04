@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using CleanArchMvc.Application.DTOs;
+using CleanArchMvc.Domain.Entities;
+
+namespace CleanArchMvc.Application.Mappings
+{
+    public class DomainToDtoMappingProfile : Profile
+    {
+        public DomainToDtoMappingProfile()
+        {
+            CreateMap<Club, ClubDto>().ReverseMap();
+            CreateMap<Player, PlayerDto>().ReverseMap();
+            CreateMap<Trophy, TrophyDto>().ReverseMap();
+        }
+    }
+}
