@@ -1,4 +1,5 @@
-﻿using CleanArchMvc.Application.Interfaces;
+﻿using CleanArchMvc.Application.Clubs.Get;
+using CleanArchMvc.Application.Interfaces;
 using CleanArchMvc.Application.Mappings;
 using CleanArchMvc.Application.Services;
 using CleanArchMvc.Domain.Interfaces;
@@ -7,6 +8,7 @@ using CleanArchMvc.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace CleanArchMvc.Infra.IoC
 {
@@ -21,10 +23,13 @@ namespace CleanArchMvc.Infra.IoC
                  b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                  ));
 
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetAssembly(typeof(GetClubHandler))));
+
             services.AddScoped<IClubRepository, ClubRepository>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<ITrophyRepository, TrophyRepository>();
 
+            
             services.AddScoped<IClubService, ClubService>();
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<ITrophyService, TrophyService>();

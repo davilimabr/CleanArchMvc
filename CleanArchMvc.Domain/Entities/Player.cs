@@ -15,14 +15,15 @@ namespace CleanArchMvc.Domain.Entities
         public Player(string fullName, int height, string position, DateTime dateBirth)
         {
             ValidateDomain(fullName, height, position, dateBirth);
+            Update(fullName, height, position, dateBirth);
         }
 
         public Player(int id, string fullName, int height, string position, DateTime dateBirth)
         {
             DomainExceptionValidation.When(id <= 0, "O Id deve ser um número positivo.");
-            Id = id;
 
             ValidateDomain(fullName, height, position, dateBirth);
+            Update(fullName, height, position, dateBirth, id);
         }
 
         private static void ValidateDomain(string fullName, decimal height, string position, DateTime datebirth)
@@ -35,13 +36,13 @@ namespace CleanArchMvc.Domain.Entities
             DomainExceptionValidation.When(datebirth >= DateTime.Now, "Data de nascimento não pode ser no futuro.");
         }
 
-        public void UpdatePlayer(string fullName, int height, string position, DateTime datebirth, int clubId)
+        public void Update(string fullName, int height, string position, DateTime datebirth, int clubId)
         {
-            UpdatePlayer(fullName, height, position, datebirth);
+            Update(fullName, height, position, datebirth);
             ClubId = clubId;
         }
 
-        public void UpdatePlayer(string fullName, int height, string position, DateTime datebirth)
+        public void Update(string fullName, int height, string position, DateTime datebirth)
         {
             FullName = fullName;
             Height = height;

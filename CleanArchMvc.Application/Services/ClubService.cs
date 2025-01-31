@@ -1,45 +1,52 @@
 ﻿using AutoMapper;
+using CleanArchMvc.Application.Clubs.Create;
+using CleanArchMvc.Application.Clubs.Get;
 using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Interfaces;
 using CleanArchMvc.Domain.Entities;
-using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Domain.Extension;
+using CleanArchMvc.Domain.Interfaces;
+using MediatR;
 
 namespace CleanArchMvc.Application.Services
 {
     public class ClubService : IClubService
     {
-        private IClubRepository _clubRepository;
+        private IMediator _mediator;
         private IMapper _mapper;
+        private IClubRepository _clubRepository;
 
-        public ClubService(IClubRepository clubRepository, IMapper mapper)
+        public ClubService(IMediator mediator, IMapper mapper, IClubRepository clubRepository)
         {
-            _clubRepository = clubRepository;
+            _mediator = mediator;
             _mapper = mapper;
+            _clubRepository = clubRepository;
         }
 
         public async Task<ClubDto> CreateAsync(ClubDto club)
         {
-            var clubEntity = _mapper.Map<Club>(club);
-            var result = await _clubRepository.CreateAsync(clubEntity);
+            var clubEntity = _mapper.Map<ClubCreateCommand>(club);
+            var result = await _mediator.Send(clubEntity);
 
             return result is null
                 ? throw new Exception("Erro ao criar clube.")
-                : club;
+                : _mapper.Map<ClubDto>(result);
         }
 
         public async Task<ClubDto?> GetByIdAsync(int? id)
         {
-            var clubEntity = await _clubRepository.GetByIdAsync(id!);
-            
-            return clubEntity is null
+            var clubs = await _mediator.Send(new GetClubQuery());
+
+            var club = clubs.Where(x => x.Id == id).FirstOrDefault();
+
+            return club is null
                 ? throw new Exception("Recurso não encontrado.")
-                : _mapper.Map<ClubDto>(clubEntity);
+                : _mapper.Map<ClubDto>(club);
         }
 
         public async Task<IEnumerable<ClubDto>> GetClubsAsync()
         {
-            var clubs = await _clubRepository.GetClubsAsync();
+            var clubs = await _mediator.Send(new GetClubQuery());
 
             return clubs.IsNullOrEmpty()
                 ? throw new Exception("Recurso não encontrado.")

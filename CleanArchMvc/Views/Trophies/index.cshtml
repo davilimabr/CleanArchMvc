@@ -1,11 +1,14 @@
-﻿@model IEnumerable<CleanArchMvc.Application.DTOs.ClubDto>
-
+﻿@model IEnumerable<CleanArchMvc.Application.DTOs.TrophyDto>
 
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Clubs Management";
+    ViewData["Title"] = "Thopies Management";
 }
-
+<style>
+    .modal-lg {
+        max-width: 80%;
+    }
+</style>
 <div>
     <h2>@ViewData["Title"]</h2>
 </div>
@@ -27,9 +30,11 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FullName)
+                    @Html.DisplayNameFor(model => model.Competition)
                 </th>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +42,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FullName)
+                        @Html.DisplayFor(modelItem => item.Competition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id" title="Edit" class="btn btn-warning">

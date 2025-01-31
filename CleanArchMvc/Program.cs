@@ -15,16 +15,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.MapControllerRoute(name: "Default", pattern: "{controller=Clubs}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 

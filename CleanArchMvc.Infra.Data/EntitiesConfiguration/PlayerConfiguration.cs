@@ -8,7 +8,6 @@ namespace CleanArchMvc.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Player> builder)
         {
-
             builder.HasKey(x => x.Id);
             builder.Property(x => x.FullName).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Height).IsRequired();
